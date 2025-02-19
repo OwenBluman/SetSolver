@@ -1,0 +1,1 @@
+print("This program will beat my friends at the game of Set!")
