@@ -2,7 +2,7 @@ import time
 import pyautogui
 from screen_capture import *
 from game_logic import *
-# Wait to ensure the screen is ready
+#Wait to ensure the screen is ready
 time.sleep(2)
 
 
