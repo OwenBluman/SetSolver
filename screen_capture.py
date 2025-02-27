@@ -2,25 +2,48 @@ import pyautogui
 import time
 import os
 
+from game_logic import card_to_filename, filename_to_card, Table
+
+
+def getFilenames(remaining_filenames):
+    found_filenames = []
+    for filename in remaining_filenames:
+        filename = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics/" + filename
+        try:
+            location = pyautogui.locateOnScreen(filename, grayscale=False,confidence=0.97)
+            if location:
+                found_filenames.append(filename)
+        except pyautogui.ImageNotFoundException:
+            pass
+    return found_filenames
+
+def getSet(current_board):
+    cards = []
+    for filename in current_board:
+        filename = filename[63:]
+        cards.append(filename_to_card(filename))
+    game_table = Table(cards)
+    set_cards = game_table.findsets_gnt()
+    filenames =[]
+    for card in set_cards:
+        new_filename = card_to_filename(card)
+        new_filename = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics/" + new_filename
+        filenames.append(new_filename)
+    return filenames
 
 # Function to check which images from the folder are on the screen
-def getBoard(image_folder):
-    detected_images = []
-    i = 0
+def getBoard(found_cards,remaining_cards):
+    detected_images = found_cards
     # Loop through all images in the folder
-    for filename in os.listdir(image_folder):
-        image_path = os.path.join(image_folder, filename)
+    for card in remaining_cards:
         try:
-            # Attempt to locate the image on screen
-            location = pyautogui.locateOnScreen(image_path, grayscale=False,confidence=0.95)
-
+            location = pyautogui.locateOnScreen(card_to_filename(card), grayscale=False,confidence=0.95)
             if location:
-                detected_images.append(filename)
-                i +=1
+                detected_images.append(card)
 
         except pyautogui.ImageNotFoundException:
             pass  # If image is not found, do nothing and continue
-        if (i == 11):
+        if (len(detected_images) == 12):
             break
     return detected_images
 

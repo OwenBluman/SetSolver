@@ -6,7 +6,6 @@ class Table:
 
     def __init__(self, set_cards):
         self.cards = set_cards
-        print(self.cards)
 
     def findsets_gnt(self):  # generate and test
         for i, ci in enumerate(self.cards):
