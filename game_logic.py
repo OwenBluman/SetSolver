@@ -81,6 +81,6 @@ def card_to_filename(card):
     color, number, shape, fill = card.attrs
 
     # Map the attributes back to their corresponding strings
-    filename = f"iconPics/{color_map[color]}_{number_map[number]}_{shape_map[shape]}_{fill_map[fill]}.png"
+    filename = f"{color_map[color]}_{number_map[number]}_{shape_map[shape]}_{fill_map[fill]}.png"
 
     return filename
