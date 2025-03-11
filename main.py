@@ -1,33 +1,30 @@
+'''
+This is the main driver for the program that will automatically win at Set with Friends
+'''
 import time
-import pyautogui
 import os
-from game_logic import *
 from screen_capture import *
-from mss_detection import find_image
-# Wait to ensure the screen is ready
 import datetime
 
-'''
-print(datetime.datetime.now())
-test_img = "iconPics/green_two_tilda_solid.png"
-print("gonna call fucnaiton")
-x,y = pyautogui.center(find_image(test_img))
-pyautogui.click(x,y)
-print(f"Here's the x {x}, and here's the y {y}")
-print(datetime.datetime.now())
-'''
+#Wait for screen
 time.sleep(1)
+
+#Set up clocks
 og_timer = datetime.datetime.now()
 set_timer = datetime.datetime.now()
+
+#Set up images
 image_folder = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics"  # Replace with actual folder path
 remaining_filenames = []
 for filename in os.listdir(image_folder):
     remaining_filenames.append(filename)
+
+#Loop over find/solve/click
 for i in range(0,100):
-    #print(remaining_filenames)
     current_filenames = getFilenames(remaining_filenames,False)
     try:
         try:
+            #Normal search
             set_filenames = getSet(current_filenames)
             print(f"Set found in {(datetime.datetime.now()-set_timer).total_seconds()} seconds, total time is {(datetime.datetime.now()-og_timer).total_seconds()}")
             set_timer = datetime.datetime.now()
@@ -35,8 +32,9 @@ for i in range(0,100):
                 clickTarget(filename)
                 remaining_filenames.remove(os.path.basename(filename))
         except:
+            #Bonus row search
             current_filenames = getFilenames(remaining_filenames, True)
-            print(f"Caught exception and running bonus {datetime.datetime.now()}")
+            print(f"Running bonus")
             set_filenames = getSet(current_filenames)
             print(f"Set found in {(datetime.datetime.now() - set_timer).total_seconds()} seconds, total time is {(datetime.datetime.now() - og_timer).total_seconds()}")
             set_timer = datetime.datetime.now()
@@ -45,8 +43,9 @@ for i in range(0,100):
                 remaining_filenames.remove(os.path.basename(filename))
             pass
     except:
-        print('total fuck up')
+        print('Bonus error')
         pass
+    #Wait for cards to reset
     time.sleep(0.5)
 
 

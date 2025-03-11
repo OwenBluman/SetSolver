@@ -1,67 +1,64 @@
+'''
+This program handles interaction between the current screen region presented by the driver and the game logic
+'''
 import pyautogui
-import time
-import os
-import cv2
-from mss import mss
 from game_logic import card_to_filename, filename_to_card, Table
 from mss_detection import find_image
-import datetime
 
-
+'''
+Gets the filenames of all of the Set cards currently on the board, stopping once a set is found
+    remaining_filenames: list of filenames to search for (will shrink when sets are found by program)
+    bonus: if true then increase the screen search region to account for extra row
+    return: the list of filenames that were found on the board
+'''
 def getFilenames(remaining_filenames,bonus):
     found_filenames = []
     for filename in remaining_filenames:
         filename = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics/" + filename
+        #Try to find each image, add to list if found, pass otherwise
         try:
-            #print(f"{datetime.datetime.now()} enter locate {filename}")
-            #location = pyautogui.locateOnScreen(filename, grayscale=False,confidence=0.97,region=region)
             location = find_image(filename,bonus)
-            #print(f"{datetime.datetime.now()} exit locate {filename}")
             if location:
                 found_filenames.append(filename)
                 try:
+                    #Once three cards are found, look for a set and if found then just return
+                    #This saves time as program doesn't need to find all cards, just those that make up a set
                     if len(found_filenames) > 2 and getSet(found_filenames) != None:
                         return found_filenames
-                    # call game on found_filenames, if it returns cards then return found_filenames
                 except:
                     pass
         except pyautogui.ImageNotFoundException:
             pass
     return found_filenames
 
+'''
+Gets the filenames of the cards that make up a set from the current array of filenames
+    current_board: list of filenames that will be searched through
+    return: the list of filenames that form a set
+'''
 def getSet(current_board):
     cards = []
     for filename in current_board:
+        #Slice image filename from full path
         filename = filename[63:]
         cards.append(filename_to_card(filename))
+    #Find set
     game_table = Table(cards)
     set_cards = game_table.findsets_gnt()
-    filenames =[]
+    filenames = []
+    #Return filenames in full path format
     for card in set_cards:
         new_filename = card_to_filename(card)
         new_filename = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics/" + new_filename
         filenames.append(new_filename)
     return filenames
 
-# Function to check which images from the folder are on the screen
-def getBoard(found_cards,remaining_cards):
-    detected_images = found_cards
-    # Loop through all images in the folder
-    for card in remaining_cards:
-        try:
-            #location = pyautogui.locateOnScreen(card_to_filename(card), grayscale=False,confidence=0.95,region=region)
-            location = find_image(card_to_filename(card))
-            if location:
-                detected_images.append(card)
-
-        except pyautogui.ImageNotFoundException:
-            pass  # If image is not found, do nothing and continue
-        if (len(detected_images) == 12):
-            break
-    return detected_images
-
+'''
+Clicks on a given Set card
+    target_image: the card to be clicked on
+'''
 def clickTarget(target_image):
-    #location = pyautogui.locateOnScreen(target_image,grayscale=False,confidence=0.95,region=region)
+    #Find image in board (always including bonus row)
     location = find_image(target_image,True)
     x, y = pyautogui.center(location)
     pyautogui.click(x, y)
