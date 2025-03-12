@@ -12,7 +12,7 @@ Finds the coordinates of the given Set card using MSS for screen capture and pya
     image_path: file path to Set card (in iconPics)
     bonus_row: if true then increase the screen search region to account for extra row
     confidence: set to 0.97 to accurately locate based on color while accounting for any potential small errors
-    return: the coordinates of the given Set card (have to divide by 2 and add the padding back in due to Mac display,
+    return: the coordinates of the given Set card (have to divide by 2 and add the padding back in for Mac display,
     see more info here: https://github.com/asweigart/pyautogui/issues/671)
 '''
 def find_image(image_path, bonus_row, confidence=0.97):
