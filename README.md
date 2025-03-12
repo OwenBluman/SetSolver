@@ -27,7 +27,13 @@ the same attributes. After gathering the screenshots, I then converted each imag
 (https://paintbrush.sourceforge.io/) naming each file based upon the attributes of the Set card the image contained, in the format
 color_number_shape_filling, to make later filename conversion simple. Lastly, I stored them in the "iconPics" folder. Below is
 an example of a set card from the folder:
-![green_three_diamond_empty](iconPics/green_three_diamond_empty.png)
+
+
+<p align="center">
+  <img src="iconPics/green_three_diamond_empty.png" width="200" />
+</p>
+
+
 ## Para 1
 test para
 ## Para 2
