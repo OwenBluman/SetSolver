@@ -14,7 +14,7 @@ og_timer = datetime.datetime.now()
 set_timer = datetime.datetime.now()
 
 #Set up images
-image_folder = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics"  # Replace with actual folder path
+image_folder = "/Users/owenbluman/PycharmProjects/setSolver/SetSolver/iconPics"
 remaining_filenames = []
 for filename in os.listdir(image_folder):
     remaining_filenames.append(filename)
