@@ -7,6 +7,7 @@ This program will then automatically detect the Set cards on the board, determin
 and then click on the cards in quick succession. This process will repeat indefinitely, so terminate the program after
 the game has been completed. The program is currently configured for the M2 Macbook Air with a 2560 × 1664 resolution. 
 Changes to the defined board region will need to be made in mss_detection.py to comply with different display configurations.
+
 ## Development Process
 
 ### Motivation
@@ -22,6 +23,7 @@ Next, I wanted to verify sequential image detection so I took screenshots of but
 calculator page, and then similarly used "locate" and "click" to compute a basic math equation. The final test was to try the
 sequential detection out on a Set with Friends game. I saved photos of 3 set cards that contained a set and then automated a
 series of clicks to give the program its first set.
+
 ### Data Collection
 In total, I saved screenshots of all 81 possible Set cards by playing through a full game individually. For each photo I included
 the full area contained withing the border of a card, with some minor padding outside of it. This was done so that, for example,
