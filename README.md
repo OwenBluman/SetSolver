@@ -1,6 +1,8 @@
 # SetSolver
 A program to win at Set with Friends!
 
+[Screen Recording 2025-03-17 at 12.13.35 PM.mov](../../../Desktop/Screen%20Recording%202025-03-17%20at%2012.13.35%E2%80%AFPM.mov)
+
 ## Instructions
 Run main.py and then quickly switch over to a fullscreen tab with a Set with Friends (https://setwithfriends.com/) game running.
 This program will then automatically detect the Set cards on the board, determine which of the detected cards make a set,
